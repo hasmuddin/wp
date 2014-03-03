@@ -1,0 +1,4 @@
+wp
+==
+
+A wordpress template
