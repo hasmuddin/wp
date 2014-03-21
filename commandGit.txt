@@ -1,0 +1,392 @@
+hasmuddin@hasmuddin:~$ git
+usage: git [--version] [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]
+           [-p|--paginate|--no-pager] [--no-replace-objects] [--bare]
+           [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]
+           [-c name=value] [--help]
+           <command> [<args>]
+
+The most commonly used git commands are:
+   add        Add file contents to the index
+   bisect     Find by binary search the change that introduced a bug
+   branch     List, create, or delete branches
+   checkout   Checkout a branch or paths to the working tree
+   clone      Clone a repository into a new directory
+   commit     Record changes to the repository
+   diff       Show changes between commits, commit and working tree, etc
+   fetch      Download objects and refs from another repository
+   grep       Print lines matching a pattern
+   init       Create an empty git repository or reinitialize an existing one
+   log        Show commit logs
+   merge      Join two or more development histories together
+   mv         Move or rename a file, a directory, or a symlink
+   pull       Fetch from and merge with another repository or a local branch
+   push       Update remote refs along with associated objects
+   rebase     Forward-port local commits to the updated upstream head
+   reset      Reset current HEAD to the specified state
+   rm         Remove files from the working tree and from the index
+   show       Show various types of objects
+   status     Show the working tree status
+   tag        Create, list, delete or verify a tag object signed with GPG
+
+See 'git help <command>' for more information on a specific command.
+hasmuddin@hasmuddin:~$ cd /var/www/testsession/
+hasmuddin@hasmuddin:/var/www/testsession$ touch test.txt
+hasmuddin@hasmuddin:/var/www/testsession$ git status
+fatal: Not a git repository (or any of the parent directories): .git
+hasmuddin@hasmuddin:/var/www/testsession$ git init
+Initialized empty Git repository in /var/www/testsession/.git/
+hasmuddin@hasmuddin:/var/www/testsession$ git status
+# On branch master
+#
+# Initial commit
+#
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#	test.txt
+nothing added to commit but untracked files present (use "git add" to track)
+hasmuddin@hasmuddin:/var/www/testsession$ git add .
+hasmuddin@hasmuddin:/var/www/testsession$ git status
+# On branch master
+#
+# Initial commit
+#
+# Changes to be committed:
+#   (use "git rm --cached <file>..." to unstage)
+#
+#	new file:   test.txt
+#
+hasmuddin@hasmuddin:/var/www/testsession$ git commit -m "test session commit"
+[master (root-commit) e766798] test session commit
+ 0 files changed
+ create mode 100644 test.txt
+hasmuddin@hasmuddin:/var/www/testsession$ git status
+# On branch master
+nothing to commit (working directory clean)
+hasmuddin@hasmuddin:/var/www/testsession$ git remote add origin
+usage: git remote add [<options>] <name> <url>
+
+    -f, --fetch           fetch the remote branches
+    --tags                import all tags and associated objects when fetching
+                          or do not fetch any tag at all (--no-tags)
+    -t, --track <branch>  branch(es) to track
+    -m, --master <branch>
+                          master branch
+    --mirror[=<push|fetch>]
+                          set up remote as a mirror to push to or fetch from
+
+hasmuddin@hasmuddin:/var/www/testsession$ git remote add origin git@github.com:hasmuddin/testfirst.git
+hasmuddin@hasmuddin:/var/www/testsession$ git push --all
+Counting objects: 3, done.
+Writing objects: 100% (3/3), 216 bytes, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To git@github.com:hasmuddin/testfirst.git
+ * [new branch]      master -> master
+hasmuddin@hasmuddin:/var/www/testsession$ ^C
+hasmuddin@hasmuddin:/var/www/testsession$ cd..
+cd..: command not found
+hasmuddin@hasmuddin:/var/www/testsession$ cd ..
+hasmuddin@hasmuddin:/var/www$ git clone git@github.com:heroic/amit-test.git
+Cloning into 'amit-test'...
+remote: Counting objects: 6, done.
+remote: Compressing objects: 100% (5/5), done.
+remote: Total 6 (delta 1), reused 6 (delta 1)
+Receiving objects: 100% (6/6), 4.08 KiB, done.
+Resolving deltas: 100% (1/1), done.
+hasmuddin@hasmuddin:/var/www$ cd amit-test
+hasmuddin@hasmuddin:/var/www/amit-test$ git status
+# On branch master
+nothing to commit (working directory clean)
+hasmuddin@hasmuddin:/var/www/amit-test$ ls -la
+total 36
+drwxr-xr-x 3 hasmuddin hasmuddin 4096 Mar 20 17:50 .
+drwxrwxrwx 7 hasmuddin hasmuddin 4096 Mar 20 17:50 ..
+drwxrwxr-x 8 hasmuddin hasmuddin 4096 Mar 20 17:51 .git
+-rwxrwxr-x 1 hasmuddin hasmuddin 6662 Mar 20 17:50 news-desktop.tpl.php
+-rwxrwxr-x 1 hasmuddin hasmuddin 1213 Mar 20 17:50 news-details.tpl.php
+-rwxrwxr-x 1 hasmuddin hasmuddin 2126 Mar 20 17:50 news-iframe.tpl.php
+-rwxrwxr-x 1 hasmuddin hasmuddin 6934 Mar 20 17:50 news-mobile.tpl.php
+hasmuddin@hasmuddin:/var/www/amit-test$ touch has.php
+hasmuddin@hasmuddin:/var/www/amit-test$ git add has.php
+hasmuddin@hasmuddin:/var/www/amit-test$ git status
+# On branch master
+# Changes to be committed:
+#   (use "git reset HEAD <file>..." to unstage)
+#
+#	new file:   has.php
+#
+hasmuddin@hasmuddin:/var/www/amit-test$ git commit -m "references #3"
+[master 26b7e6d] references #3
+ 0 files changed
+ create mode 100644 has.php
+hasmuddin@hasmuddin:/var/www/amit-test$ git push
+ERROR: Permission to heroic/amit-test.git denied to hasmuddin.
+fatal: The remote end hung up unexpectedly
+hasmuddin@hasmuddin:/var/www/amit-test$ git push
+^C          
+hasmuddin@hasmuddin:/var/www/amit-test$ git pull
+remote: Counting objects: 11, done.
+remote: Compressing objects: 100% (6/6), done.
+remote: Total 10 (delta 4), reused 9 (delta 3)
+Unpacking objects: 100% (10/10), done.
+From github.com:heroic/amit-test
+   f4fdbdc..55119c2  master     -> origin/master
+Merge made by the 'recursive' strategy.
+ 0 files changed
+ create mode 100644 something.txt
+ create mode 100644 test.php
+hasmuddin@hasmuddin:/var/www/amit-test$ git push
+Warning: Permanently added the RSA host key for IP address '192.30.252.129' to the list of known hosts.
+To git@github.com:heroic/amit-test.git
+ ! [rejected]        master -> master (non-fast-forward)
+error: failed to push some refs to 'git@github.com:heroic/amit-test.git'
+To prevent you from losing history, non-fast-forward updates were rejected
+Merge the remote changes (e.g. 'git pull') before pushing again.  See the
+'Note about fast-forwards' section of 'git push --help' for details.
+hasmuddin@hasmuddin:/var/www/amit-test$ git push
+To git@github.com:heroic/amit-test.git
+ ! [rejected]        master -> master (non-fast-forward)
+error: failed to push some refs to 'git@github.com:heroic/amit-test.git'
+To prevent you from losing history, non-fast-forward updates were rejected
+Merge the remote changes (e.g. 'git pull') before pushing again.  See the
+'Note about fast-forwards' section of 'git push --help' for details.
+hasmuddin@hasmuddin:/var/www/amit-test$ git pull
+remote: Counting objects: 25, done.
+remote: Compressing objects: 100% (12/12), done.
+remote: Total 22 (delta 11), reused 21 (delta 10)
+Unpacking objects: 100% (22/22), done.
+From github.com:heroic/amit-test
+   55119c2..9fd3dae  master     -> origin/master
+Merge made by the 'recursive' strategy.
+ 0 files changed
+ create mode 100644 agintest.php
+ create mode 100644 gauravkk.txt
+ create mode 100644 gauravkk1.txt
+ create mode 100644 test.txt
+hasmuddin@hasmuddin:/var/www/amit-test$ git push
+To git@github.com:heroic/amit-test.git
+ ! [rejected]        master -> master (non-fast-forward)
+error: failed to push some refs to 'git@github.com:heroic/amit-test.git'
+To prevent you from losing history, non-fast-forward updates were rejected
+Merge the remote changes (e.g. 'git pull') before pushing again.  See the
+'Note about fast-forwards' section of 'git push --help' for details.
+hasmuddin@hasmuddin:/var/www/amit-test$ git push
+To git@github.com:heroic/amit-test.git
+ ! [rejected]        master -> master (non-fast-forward)
+error: failed to push some refs to 'git@github.com:heroic/amit-test.git'
+To prevent you from losing history, non-fast-forward updates were rejected
+Merge the remote changes (e.g. 'git pull') before pushing again.  See the
+'Note about fast-forwards' section of 'git push --help' for details.
+hasmuddin@hasmuddin:/var/www/amit-test$ git pull
+
+
+remote: Counting objects: 17, done.
+remote: Compressing objects: 100% (7/7), done.
+remote: Total 14 (delta 7), reused 14 (delta 7)
+Unpacking objects: 100% (14/14), done.
+From github.com:heroic/amit-test
+   9fd3dae..571bfe6  master     -> origin/master
+Merge made by the 'recursive' strategy.
+ 0 files changed
+ create mode 100644 abc_comm.php
+ create mode 100644 n
+hasmuddin@hasmuddin:/var/www/amit-test$ 
+hasmuddin@hasmuddin:/var/www/amit-test$ 
+hasmuddin@hasmuddin:/var/www/amit-test$ git push
+Counting objects: 12, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (8/8), done.
+Writing objects: 100% (8/8), 995 bytes, done.
+Total 8 (delta 4), reused 0 (delta 0)
+To git@github.com:heroic/amit-test.git
+   571bfe6..8072a4b  master -> master
+hasmuddin@hasmuddin:/var/www/amit-test$ git branch -b feature/hasmuddinSaifi
+error: unknown switch `b'
+usage: git branch [options] [-r | -a] [--merged | --no-merged]
+   or: git branch [options] [-l] [-f] <branchname> [<start-point>]
+   or: git branch [options] [-r] (-d | -D) <branchname>...
+   or: git branch [options] (-m | -M) [<oldbranch>] <newbranch>
+
+Generic options
+    -v, --verbose         show hash and subject, give twice for upstream branch
+    -t, --track           set up tracking mode (see git-pull(1))
+    --set-upstream        change upstream info
+    --color[=<when>]      use colored output
+    -r, --remotes         act on remote-tracking branches
+    --contains <commit>   print only branches that contain the commit
+    --abbrev[=<n>]        use <n> digits to display SHA-1s
+
+Specific git-branch actions:
+    -a, --all             list both remote-tracking and local branches
+    -d, --delete          delete fully merged branch
+    -D                    delete branch (even if not merged)
+    -m, --move            move/rename a branch and its reflog
+    -M                    move/rename a branch, even if target exists
+    --list                list branch names
+    -l, --create-reflog   create the branch's reflog
+    --edit-description    edit the description for the branch
+    -f, --force           force creation (when already exists)
+    --no-merged <commit>  print only not merged branches
+    --merged <commit>     print only merged branches
+
+hasmuddin@hasmuddin:/var/www/amit-test$ git status
+# On branch master
+nothing to commit (working directory clean)
+hasmuddin@hasmuddin:/var/www/amit-test$ git branch feature/hasmuddinSaifi
+hasmuddin@hasmuddin:/var/www/amit-test$ git status
+# On branch master
+nothing to commit (working directory clean)
+hasmuddin@hasmuddin:/var/www/amit-test$ git cheeckout feature/hasmuddinSaifi
+git: 'cheeckout' is not a git command. See 'git --help'.
+
+Did you mean this?
+	checkout
+hasmuddin@hasmuddin:/var/www/amit-test$ git checkout feature/hasmuddinSaifi
+Switched to branch 'feature/hasmuddinSaifi'
+hasmuddin@hasmuddin:/var/www/amit-test$ git status
+# On branch feature/hasmuddinSaifi
+nothing to commit (working directory clean)
+hasmuddin@hasmuddin:/var/www/amit-test$ touch hasm.php
+hasmuddin@hasmuddin:/var/www/amit-test$ git add hasm.php
+hasmuddin@hasmuddin:/var/www/amit-test$ git push
+^C
+hasmuddin@hasmuddin:/var/www/amit-test$ git commit -m "testing"
+[feature/hasmuddinSaifi 47c4f47] testing
+ 0 files changed
+ create mode 100644 hasm.php
+hasmuddin@hasmuddin:/var/www/amit-test$ git push
+To git@github.com:heroic/amit-test.git
+ ! [rejected]        master -> master (non-fast-forward)
+error: failed to push some refs to 'git@github.com:heroic/amit-test.git'
+To prevent you from losing history, non-fast-forward updates were rejected
+Merge the remote changes (e.g. 'git pull') before pushing again.  See the
+'Note about fast-forwards' section of 'git push --help' for details.
+hasmuddin@hasmuddin:/var/www/amit-test$ git push origin feature/hasmuddinSaifi
+Counting objects: 62, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (60/60), done.
+Writing objects: 100% (62/62), 10.43 KiB, done.
+Total 62 (delta 26), reused 6 (delta 1)
+To git@github.com:heroic/amit-test.git
+ * [new branch]      feature/hasmuddinSaifi -> feature/hasmuddinSaifi
+hasmuddin@hasmuddin:/var/www/amit-test$ git checkout development
+error: pathspec 'development' did not match any file(s) known to git.
+hasmuddin@hasmuddin:/var/www/amit-test$ git checkout developement
+error: pathspec 'developement' did not match any file(s) known to git.
+hasmuddin@hasmuddin:/var/www/amit-test$ git fetch development
+fatal: 'development' does not appear to be a git repository
+fatal: The remote end hung up unexpectedly
+h asmuddin@hasmuddin:/var/www/amit-test$ git fetch developement
+fatal: 'developement' does not appear to be a git repository
+fatal: The remote end hung up unexpectedly
+hasmuddin@hasmuddin:/var/www/amit-test$ git fetch develpment
+fatal: 'develpment' does not appear to be a git repository
+fatal: The remote end hung up unexpectedly
+hasmuddin@hasmuddin:/var/www/amit-test$ git fetch development
+fatal: 'development' does not appear to be a git repository
+fatal: The remote end hung up unexpectedly
+hasmuddin@hasmuddin:/var/www/amit-test$ git fetch development
+fatal: 'development' does not appear to be a git repository
+fatal: The remote end hung up unexpectedly
+hasmuddin@hasmuddin:/var/www/amit-test$ git fetch 
+remote: Counting objects: 51, done.
+remote: Compressing objects: 100% (27/27), done.
+remote: Total 40 (delta 20), reused 32 (delta 12)
+Unpacking objects: 100% (40/40), done.
+From github.com:heroic/amit-test
+ * [new branch]      development -> origin/development
+ * [new branch]      feature/ashishGoyal -> origin/feature/ashishGoyal
+ * [new branch]      feature/gauravDixit -> origin/feature/gauravDixit
+ * [new branch]      feature/gauravKakkarBranch -> origin/feature/gauravKakkarBranch
+ * [new branch]      feature/jitendraSingh -> origin/feature/jitendraSingh
+ * [new branch]      feature/karuneshManiTripathi -> origin/feature/karuneshManiTripathi
+ * [new branch]      feature/pawansharma -> origin/feature/pawansharma
+ * [new branch]      feature/rohanRajMishra -> origin/feature/rohanRajMishra
+ * [new branch]      feature/saurabhSingh -> origin/feature/saurabhSingh
+ * [new branch]      featured/dasarathSahoo -> origin/featured/dasarathSahoo
+   8072a4b..c693f35  master     -> origin/master
+hasmuddin@hasmuddin:/var/www/amit-test$ git checkout development
+Branch development set up to track remote branch development from origin.
+Switched to a new branch 'development'
+hasmuddin@hasmuddin:/var/www/amit-test$ git status
+# On branch development
+nothing to commit (working directory clean)
+hasmuddin@hasmuddin:/var/www/amit-test$ git merge feature/hasmuddinSaifi
+Updating f4fdbdc..47c4f47
+Fast-forward
+ 0 files changed
+ create mode 100644 abc_comm.php
+ create mode 100644 agintest.php
+ create mode 100644 gauravkk.txt
+ create mode 100644 gauravkk1.txt
+ create mode 100644 has.php
+ create mode 100644 hasm.php
+ create mode 100644 n
+ create mode 100644 something.txt
+ create mode 100644 test.php
+ create mode 100644 test.txt
+hasmuddin@hasmuddin:/var/www/amit-test$ git commit -m "Merge branch feature/hasmuddinSaifi into development. references #1, #2, #3" 
+# On branch development
+# Your branch is ahead of 'origin/development' by 28 commits.
+#
+nothing to commit (working directory clean)
+hasmuddin@hasmuddin:/var/www/amit-test$ git push
+To git@github.com:heroic/amit-test.git
+ ! [rejected]        development -> development (non-fast-forward)
+ ! [rejected]        master -> master (non-fast-forward)
+error: failed to push some refs to 'git@github.com:heroic/amit-test.git'
+To prevent you from losing history, non-fast-forward updates were rejected
+Merge the remote changes (e.g. 'git pull') before pushing again.  See the
+'Note about fast-forwards' section of 'git push --help' for details.
+hasmuddin@hasmuddin:/var/www/amit-test$ git pull
+remote: Counting objects: 15, done.
+remote: Compressing objects: 100% (4/4), done.
+remote: Total 5 (delta 2), reused 4 (delta 1)
+Unpacking objects: 100% (5/5), done.
+From github.com:heroic/amit-test
+   f4fdbdc..f175c5f  development -> origin/development
+Merge made by the 'recursive' strategy.
+ agintest.php |    3 +++
+ 1 file changed, 3 insertions(+)
+ create mode 100644 filename.rb
+ create mode 100644 gauravTest.php
+ create mode 100644 innewbranch.php
+ create mode 100644 tesstingf
+hasmuddin@hasmuddin:/var/www/amit-test$ git push
+^C
+hasmuddin@hasmuddin:/var/www/amit-test$ git push
+To git@github.com:heroic/amit-test.git
+ ! [rejected]        development -> development (non-fast-forward)
+ ! [rejected]        master -> master (non-fast-forward)
+error: failed to push some refs to 'git@github.com:heroic/amit-test.git'
+To prevent you from losing history, non-fast-forward updates were rejected
+Merge the remote changes (e.g. 'git pull') before pushing again.  See the
+'Note about fast-forwards' section of 'git push --help' for details.
+hasmuddin@hasmuddin:/var/www/amit-test$ git pull
+remote: Counting objects: 26, done.
+remote: Compressing objects: 100% (11/11), done.
+remote: Total 18 (delta 9), reused 16 (delta 7)
+Unpacking objects: 100% (18/18), done.
+From github.com:heroic/amit-test
+   f175c5f..d64db02  development -> origin/development
+Merge made by the 'recursive' strategy.
+ news-desktop.tpl.php |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+ create mode 100644 add.php
+ create mode 100644 edit.php
+ create mode 100644 gauravkk2.txt
+ create mode 100644 pawan.php
+ create mode 100644 test2.php
+hasmuddin@hasmuddin:/var/www/amit-test$ git push
+Counting objects: 7, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (4/4), 581 bytes, done.
+Total 4 (delta 2), reused 0 (delta 0)
+To git@github.com:heroic/amit-test.git
+   d64db02..1a0a62a  development -> development
+ ! [rejected]        master -> master (non-fast-forward)
+error: failed to push some refs to 'git@github.com:heroic/amit-test.git'
+To prevent you from losing history, non-fast-forward updates were rejected
+Merge the remote changes (e.g. 'git pull') before pushing again.  See the
+'Note about fast-forwards' section of 'git push --help' for details.
